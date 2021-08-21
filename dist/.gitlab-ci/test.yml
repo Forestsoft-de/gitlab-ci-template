@@ -3,5 +3,10 @@
     
 check_container:
     <<: *preparetest
+    rules:
+        - exists:
+          - ./build/test/check_container.sh
+    before_script:
+        - chmod 755 ./build/test/check_container.sh
     script:
         - ./build/test/check_container.sh
