@@ -1,6 +1,14 @@
 .preparetest: &preparetest
     stage: test
     
+static_code_analysis:
+  rules:
+    - exists:
+      - ./psalm.xml
+  image: vimeo/psalm-github-actions:4.9.3
+  script:
+     - /composer/vendor/bin/psalm -c ./psalm.xml
+
 check_container:
     <<: *preparetest
     rules:
