@@ -3,9 +3,6 @@
     before_script:
         - cd build/release
         - docker build -t ${CI_PROJECT_NAME}_deployer .
-    needs:
-        - job: build_container
-
 deploy-stg:
     <<: *deploy
     stage: stage
@@ -28,9 +25,9 @@ deploy-prd:
         SSH_KEY: $PRD_KEY
         SSH_HOST: $SSH_HOST
     rules:
+      - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH 
       - exists:
          - build/release/Dockerfile
-      - if: $CI_COMMIT_BRANCH == "master" 
         when: manual
     script:
         - docker run --rm -e SSH_USER="$SSH_USER" -e SSH_KEY="$SSH_KEY" -e SSH_HOST="$SSH_HOST" -v$(pwd):/app/ ${CI_PROJECT_NAME}_deployer prd
