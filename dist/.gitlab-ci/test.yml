@@ -1,0 +1,11 @@
+.preparetest: &preparetest
+    stage: test
+    before_script:
+        - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+        - docker pull -q ${CI_REGISTRY_IMAGE}:${DOCKER_TAG}
+        - chmod 755 ./build/test/*.sh ./build/configure.sh
+
+check_container:
+    <<: *preparetest
+    script:
+        - ./build/test/check_container.sh

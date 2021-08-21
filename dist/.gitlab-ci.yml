@@ -1,0 +1,18 @@
+include:
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/.gitlab-ci/build.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/.gitlab-ci/test.yml
+
+stages:
+    - build
+    - test
+    - deploy
+    - cleanup
+
+variables:
+    DOCKER_TAG: ${CI_COMMIT_SHORT_SHA}
+    
+
+image: ${CI_REGISTRY_IMAGE}:${DOCKER_TAG}
+services:
+    - docker:dind
+    - ${CI_REGISTRY_IMAGE}/database:${DOCKER_TAG}
