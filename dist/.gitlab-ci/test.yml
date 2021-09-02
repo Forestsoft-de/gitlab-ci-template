@@ -17,4 +17,7 @@ check_container:
     before_script:
         - chmod 755 build/test/check_container.sh
     script:
+        - echo -e "\e[0Ksection_start:`date +%s`:boot_container_section[collapsed=true]\r\e[0K Boot Container"
+        - /usr/local/bin/boot-container.sh
+        - echo -e "\e[0Ksection_end:`date +%s`:boot_container_section\r\e[0K"
         - build/test/check_container.sh
