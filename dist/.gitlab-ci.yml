@@ -1,8 +1,8 @@
 # this urls will be replaced on release with the tagged version of an commit
 include:
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/build.yml
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/test.yml
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/deployment.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.3/dist/.gitlab-ci/build.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.3/dist/.gitlab-ci/test.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.3/dist/.gitlab-ci/deployment.yml
 
 stages:
     - build
@@ -18,4 +18,5 @@ variables:
 image: ${CI_REGISTRY_IMAGE}:${DOCKER_TAG}
 services:
     - docker:dind
-    - ${CI_REGISTRY_IMAGE}/database:${DOCKER_TAG}
+    - name: ${CI_REGISTRY_IMAGE}/database:${DOCKER_TAG}
+      alias: database
