@@ -26,6 +26,6 @@ deploy-prd:
          - build/release/Dockerfile
         when: manual
     script:
-        - docker run --rm -e SSH_USER="$$PRD_USER" -eDEPLOY_DIR="$DEPLOY_DIR" -e SSH_KEY="$PRD_KEY" -e SSH_HOST="$SSH_HOST" -v$(pwd):/app/ ${CI_PROJECT_NAME}_deployer prd
+        - docker run --rm -e SSH_USER="$PRD_USER" -e DEPLOY_DIR="$DEPLOY_DIR" -e SSH_KEY="$PRD_KEY" -e SSH_HOST="$SSH_HOST" -v$(pwd):/app/ ${CI_PROJECT_NAME}_deployer prd
     
 
