@@ -1,8 +1,8 @@
 # this urls will be replaced on release with the tagged version of an commit
 include:
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/build.yml
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/test.yml
-  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/main/dist/.gitlab-ci/deployment.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.8/dist/.gitlab-ci/build.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.8/dist/.gitlab-ci/test.yml
+  - https://raw.githubusercontent.com/Forestsoft-de/gitlab-ci-template/1.1.8/dist/.gitlab-ci/deployment.yml
 
 stages:
     - build
