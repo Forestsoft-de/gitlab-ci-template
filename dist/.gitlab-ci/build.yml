@@ -11,10 +11,10 @@ build_container:
         - build/app/Dockerfile
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-        - docker pull -q ${CI_REGISTRY_IMAGE}
+        - docker pull -q ${CI_REGISTRY_IMAGE}:${DOCKER_TAG} || exit 0
     script:
         - echo -e "\e[0Ksection_start:`date +%s`:build_container_section[collapsed=false]\r\e[0K build Container"
-        - docker build -t ${CI_REGISTRY_IMAGE}:${DOCKER_TAG} -f build/app/Dockerfile .
+        - docker build --cache-from ${CI_REGISTRY_IMAGE}:${DOCKER_TAG}  -t ${CI_REGISTRY_IMAGE}:${DOCKER_TAG} -f build/app/Dockerfile .
         - echo -e "\e[0Ksection_end:`date +%s`:build_container_section\r\e[0K"
         - echo -e "\e[0Ksection_start:`date +%s`:push_container_section[collapsed=true]\r\e[0K push Container"
         - docker push ${CI_REGISTRY_IMAGE}:${DOCKER_TAG}
@@ -24,6 +24,7 @@ build_database:
     <<: *build
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+        - docker pull -q ${CI_REGISTRY_IMAGE}/databae:${DOCKER_TAG} || exit 0
     rules:
       - exists:
         - build/database/Dockerfile
