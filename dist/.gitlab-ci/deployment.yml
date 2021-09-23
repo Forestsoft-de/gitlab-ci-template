@@ -1,8 +1,7 @@
 .deploy: &deploy
     image: docker:latest
     before_script:
-        - cd build/release
-        - docker build -t ${CI_PROJECT_NAME}_deployer .
+        - docker build -t ${CI_PROJECT_NAME}_deployer -f build/release/Dockerfile .
 deploy-stg:
     <<: *deploy
     stage: stage
