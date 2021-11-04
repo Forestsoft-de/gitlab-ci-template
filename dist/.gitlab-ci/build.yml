@@ -1,14 +1,13 @@
 .build: &build
     stage: build
     image: docker:latest
+    except: 
+      - tags
     services:
         - docker:dind
 
 build_container:
     <<: *build
-    rules:
-      - exists:
-        - build/app/Dockerfile
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
@@ -23,9 +22,6 @@ build_database:
     <<: *build
     before_script:
         - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    rules:
-      - exists:
-        - build/database/Dockerfile
     script:
         - docker build -t ${CI_REGISTRY_IMAGE}/database:${DOCKER_TAG} -f build/database/Dockerfile build/database/
         - docker push ${CI_REGISTRY_IMAGE}/database:${DOCKER_TAG}

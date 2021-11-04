@@ -2,18 +2,16 @@
     stage: test
     
 static_code_analysis:
-  rules:
-    - exists:
-      - ./psalm.xml
+  except: 
+    - tags
   image: vimeo/psalm-github-actions:4.9.3
   script:
      - /composer/vendor/bin/psalm -c ./psalm.xml
 
 check_container:
     <<: *preparetest
-    rules:
-        - exists:
-          - build/test/check_container.sh
+    except: 
+      - tags
     before_script:
         - chmod 755 build/test/check_container.sh
     script:
